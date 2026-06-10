@@ -5,18 +5,18 @@ resource "aws_security_group" "main" {
   dynamic "ingress" {
     for_each = var.ports
     content {
-      from_port = ingress.value
-      to_port = ingress.value
-      protocol = "TCP"
+      from_port   = ingress.value
+      to_port     = ingress.value
+      protocol    = "TCP"
       cidr_blocks = ["0.0.0.0/0"]
       description = ingress.key
     }
   }
 
   egress {
-    from_port = 0
-    to_port = 0
-    protocol = "-1"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -27,8 +27,8 @@ resource "aws_security_group" "main" {
 
 resource "aws_instance" "main" {
 
-  ami                = data.aws_ami.ami.image_id
-  instance_type      =  var.instance_type
+  ami                    = data.aws_ami.ami.image_id
+  instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.main.id]
 
   tags = {
@@ -38,10 +38,10 @@ resource "aws_instance" "main" {
 
 resource "aws_route53_zone" "dns" {
   zone_id = data.aws_route53_zone.main.zone_id
-  name    =  "${var.component}-${var.env}"
-  type   = "A"
+  name    = "${var.component}-${var.env}"
+  type    = "A"
   ttl     = 30
-  records   = [aws_instance.main.private_ip]
+  records = [aws_instance.main.private_ip]
 
 }
 
@@ -49,14 +49,14 @@ resource "null_resource" "ansible" {
 
   provisioner "remote-exec" {
     connection {
-      type = "ssh"
-      host = aws_instance.main.private_ip
-      user  = "ec2-user"
+      type     = "ssh"
+      host     = aws_instance.main.private_ip
+      user     = "ec2-user"
       password = "DevOps321"
     }
 
-    inline   = [
-         "sudo labauto ansible",
+    inline = [
+      "sudo labauto ansible",
 
     ]
   }

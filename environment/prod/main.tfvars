@@ -1,12 +1,12 @@
-dns_domain   =  "imrankhandevops72.online."
-env          = "prod"
+dns_domain = "imrankhandevops72.online."
+env        = "prod"
 
-databases   =   {
+databases = {
   postgresql = {
-    instance_type  = "t3.small"
+    instance_type = "t3.small"
     ports = {
-      ssh          =  22
-      postgreql       =5432
+      ssh       = 22
+      postgreql = 5432
     }
   }
 }
@@ -14,34 +14,34 @@ databases   =   {
 apps = {
 
   frontend = {
-    instance_type  = "t3.small"
-    port   = {
-      ssh     = 22
+    instance_type = "t3.small"
+    port = {
+      ssh      = 22
       frontend = 80
     }
   }
 
-  auth-service  = {
-    instance_type  = "t3.small"
-    ports  = {
-      ssh   = 22
-      auth-service   = 8081
+  auth-service = {
+    instance_type = "t3.small"
+    ports = {
+      ssh          = 22
+      auth-service = 8081
     }
   }
 
   portfolio-service = {
     instance_type = "t3.small"
     ports = {
-      ssh       =  22
-      portfolio-service     =  8080
+      ssh               = 22
+      portfolio-service = 8080
     }
   }
 
   analytics-service = {
     instance_type = "t3.small"
-    ports  = {
-      ssh          = 22
-      analytics-service   = 8000
+    ports = {
+      ssh               = 22
+      analytics-service = 8000
     }
   }
 }
